@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="isengUas" default="run" basedir=".">
+    <description>Builds, tests, and runs the project isengUas.</description>
+
+    <!-- Define classpath with PDFBox library -->
+    <path id="classpath">
+        <pathelement location="lib/pdfbox-app-3.0.2.jar"/>
+    </path>
+    
+    <!-- Import default build script -->
+    <import file="nbproject/build-impl.xml"/>
+
+    <!-- Override compile target to use the custom classpath -->
+    <target name="-post-compile">
+        <javac srcdir="${src.dir}" destdir="${build.classes.dir}" includeantruntime="false">
+            <classpath refid="classpath"/>
+        </javac>
+    </target>
+    
+    <!-- Override run target to use the custom classpath -->
+    <target name="run" depends="jar">
+        <java jar="${dist.jar}" fork="true">
+            <classpath>
+                <path refid="classpath"/>
+            </classpath>
+        </java>
+    </target>
+</project>
